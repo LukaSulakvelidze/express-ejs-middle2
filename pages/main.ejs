@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        width: 100%;
+        height: 100vh;
+        color: lightgray;
+        background-color: black;
+      }
+      div {
+        display: flex;
+      }
+      ul {
+        list-style: none;
+      }
+      input {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: block">
+      <input type="text" placeholder="Expance">
+      <input type="text" placeholder="Category">
+      <button>Create new expence</button>
+    </div>
+    <div>
+      <% data.forEach((el) => { %>
+      <ul>
+        <li>Expence Id: <%= el.id %></li>
+        <li>Expence Time: <%= el.date %></li>
+        <li>Expence expence: <%= el.expence %>$</li>
+        <li>Expence category: <%= el.category %></li>
+        <button>Delete</button>
+        <button>Update</button>
+      </ul>
+      <% }) %>
+    </div>
+  </body>
+</html>
