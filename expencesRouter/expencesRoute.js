@@ -1,6 +1,6 @@
-const express = require("express")
-const app = express(); 
-const { Router} = require("express");
+const express = require("express");
+const app = express();
+const { Router } = require("express");
 const expenceRouter = Router();
 const { getAll, getById, Post, Delete, Put } = require("./expence.service");
 app.set("view engine", "ejs");

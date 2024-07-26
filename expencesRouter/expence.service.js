@@ -11,6 +11,7 @@ const getAll = async (_, res) => {
     path.join(__dirname, "../", "expencesData.json"),
     true
   );
+  // res.json(expencesData)
   res.render(path.join(__dirname, "../", "pages/main.ejs"), {
     data: expencesData,
   });
@@ -28,8 +29,8 @@ const getById = async (req, res) => {
     return res
       .status(404)
       .json({ success: false, message: "Expence not found" });
-  // res.json(expencesData[indexOf]);
-  res.render(path.join(__dirname, "../", "pages/main.ejs"));
+  res.json(expencesData[indexOf]);
+  // res.render(path.join(__dirname, "../", "pages/main.ejs"));
 };
 
 // Create
@@ -51,8 +52,7 @@ const Post = async (req, res) => {
     path.join(__dirname, "../", "expencesData.json"),
     expencesData
   );
-  // res.json(newExpence);
-  res.render(path.join(__dirname, "../", "pages/main.ejs"));
+  res.json(newExpence);
 };
 
 // Delete
@@ -72,8 +72,8 @@ const Delete = async (req, res) => {
     path.join(__dirname, "../", "expencesData.json"),
     expencesData
   );
-  // res.json(deletedExpence);
-  res.render(path.join(__dirname, "../", "pages/main.ejs"));
+  res.json(deletedExpence);
+  // res.render(path.join(__dirname, "../", "pages/main.ejs"));
 };
 
 // Update
@@ -97,7 +97,7 @@ const Put = async (req, res) => {
     path.join(__dirname, "../", "expencesData.json"),
     expencesData
   );
-  // res.json(expencesData[indexOf]);
-  res.render(path.join(__dirname, "../", "pages/main.ejs"));
+  res.json(expencesData[indexOf]);
+  // res.render(path.join(__dirname, "../", "pages/main.ejs"));
 };
 module.exports = { getAll, getById, Post, Delete, Put };

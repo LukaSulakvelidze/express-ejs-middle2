@@ -20,25 +20,101 @@
       input {
         display: block;
       }
+      button {
+        height: 40px;
+        border: none;
+        cursor: pointer;
+        color: lightgray;
+      }
     </style>
   </head>
   <body>
-    <div style="display: block">
-      <input type="text" placeholder="Expance">
-      <input type="text" placeholder="Category">
-      <button>Create new expence</button>
+    <div style="display: flex; flex-direction: column; gap: 25px">
+      <input
+        style="width: 150px; height: 30px; background-color: lightgray"
+        id="expeneInput"
+        type="text"
+        placeholder="Expance"
+      />
+      <input
+        style="width: 150px; height: 30px; background-color: lightgray"
+        id="categoryInput"
+        type="text"
+        placeholder="Category"
+      />
+      <button
+        style="width: 150px; height: 30px; background-color: blue"
+        type="submit"
+        id="createButton"
+      >
+        Create new expence
+      </button>
     </div>
-    <div>
-      <% data.forEach((el) => { %>
-      <ul>
+    <div style="display: flex; flex-wrap: wrap; width: 80%">
+      <% data.forEach((el,index) => { %>
+      <ul
+        style="display: flex; flex-direction: column; gap: 10px; width: 200px"
+      >
         <li>Expence Id: <%= el.id %></li>
         <li>Expence Time: <%= el.date %></li>
         <li>Expence expence: <%= el.expence %>$</li>
         <li>Expence category: <%= el.category %></li>
-        <button>Delete</button>
-        <button>Update</button>
+        <button
+          class="delete_btn"
+          style="background-color: red"
+          data-id="<%= el.id %>"
+        >
+          Delete
+        </button>
+        <button style="background-color: green">Update</button>
       </ul>
       <% }) %>
     </div>
+    <script>
+      const expenceInput = document.getElementById("expeneInput");
+      const categoryInput = document.getElementById("categoryInput");
+      const button = document.getElementById("createButton");
+      let expenceValue;
+      let categoryValue = "";
+      expenceInput.addEventListener("input", (e) => {
+        expenceValue = e.target.value;
+      });
+      categoryInput.addEventListener("input", (e) => {
+        categoryValue = e.target.value;
+      });
+
+      button.addEventListener("click", async (e) => {
+        const response = await fetch(`http://localhost:3000/expences/add`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            expence: expenceValue,
+            category: categoryValue,
+          }),
+        });
+        location.reload();
+      });
+
+      const deleteButtons = document.querySelectorAll(".delete_btn");
+
+      deleteButtons.forEach((button) => {
+        button.addEventListener("click", async (e) => {
+          const id = e.target.getAttribute("data-id");
+
+          const response2 = await fetch(
+            `http://localhost:3000/expences/delete/${id}`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          location.reload();
+        });
+      });
+    </script>
   </body>
 </html>
